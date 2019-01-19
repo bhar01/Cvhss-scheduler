@@ -19,7 +19,8 @@ public:
     void page();
     void page1();
     void time();
-
+     void textwrite();
+void textread();
 private:
     Ui::cvv *ui;
 

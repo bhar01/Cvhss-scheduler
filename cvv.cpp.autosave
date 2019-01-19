@@ -3,6 +3,11 @@
 #include <QTimer>
 #include<QDebug>
 #include "windows.h"
+#include <QFile>
+#include <QFileDialog>
+#include<QString>
+#include <QTextStream>
+
 cvv::cvv(QWidget *parent) ://
     QMainWindow(parent),
     ui(new Ui::cvv)
@@ -51,12 +56,14 @@ ui->stackedWidget->setCurrentIndex(1);
 qDebug() << "hi";
    QTimer::singleShot(8000,this,SLOT(page1()));
    time();
+   textread();
+
 
 }
 void cvv::page1()
 {
     time();
-
+ textwrite();
 ui->stackedWidget->setCurrentIndex(0);
 qDebug() << "timer";
  QTimer::singleShot(10000,this,SLOT(page()));
@@ -1924,4 +1931,48 @@ void cvv::time()
                }
    }
 
+}
+void cvv::textwrite()
+{
+   QString Filename = "news.txt";
+   QFile file(Filename);
+    if(file.open(QIODevice::ReadWrite))
+    {
+        QTextStream stream(&file);
+        stream << ui->textEdit_3->toPlainText() ;
+    }
+
+    QString Filename1 = "update.txt";
+    QFile file1(Filename1);
+     if(file1.open(QIODevice::ReadWrite))
+     {
+         QTextStream stream1(&file1);
+         stream1 << ui->textEdit_4->toPlainText() ;
+     }
+
+}
+void cvv::textread()
+{
+    QString Filename = "news.txt";
+    QFileInfo info(Filename);
+    QFile file(Filename.toUtf8());
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+     QTextStream stream(&file);
+
+       ui->textEdit->setText(stream.readAll());
+
+       qDebug() <<stream.readAll();
+    }
+    QString Filename1 = "update.txt";
+    QFileInfo info1(Filename1);
+    QFile file1(Filename1.toUtf8());
+    if(file1.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+     QTextStream stream1(&file1);
+
+       ui->textEdit_2->setText(stream1.readAll());
+
+       qDebug() <<stream1.readAll();
+}
 }
