@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/new/res">
+        <file>res/logoheader.png</file>
+        <file>res/swamy1.jpg</file>
+    </qresource>
+</RCC>
